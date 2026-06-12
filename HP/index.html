@@ -108,30 +108,41 @@
 
         /* 📱 スマホ（画面幅が狭い端末）用の調整 */
         @media (max-width: 768px) {
+            /* 1. ヘッダーを上下2段にして、文字が潰れるのを防ぐ */
             header {
-                flex-direction: column; /* ロゴとメニューを上下2段に分ける */
-                padding: 15px 10px;
-                height: auto; /* 高さを自動調整に */
+                flex-direction: column;
+                padding: 12px 10px;
+                height: auto;
             }
 
             .logo {
-                margin-bottom: 15px;
-                font-size: 1.5rem;
+                margin-bottom: 10px;
+                font-size: 1.4rem;
                 text-align: center;
                 width: 100%;
             }
 
             header nav {
                 display: flex;
-                flex-wrap: wrap; /* 入りきらないメニューを自動で折り返す */
+                flex-wrap: wrap;
                 justify-content: center;
-                gap: 12px; /* メニュー同士の間隔 */
+                gap: 10px;
                 width: 100%;
             }
 
             header nav a {
-                font-size: 0.9rem; /* 文字をスマホ用に少し小さく */
-                margin: 0 !important; /* 余計な隙間をリセット */
+                font-size: 0.85rem;
+                margin: 0 !important;
+            }
+
+            /* 2. メインの文字を少し小さくして、気持ちよく2行に収める */
+            .hero-content h1 {
+                font-size: 1.8rem !important; /* パソコン時より文字を小さく */
+                line-height: 1.4 !important; /* 行間をちょうどよく */
+                white-space: normal !important; /* 自動で折り返す設定 */
+                word-break: keep-all !important; /* 単語の途中で変に切れないようにする */
+                max-width: 90% !important; /* 画面の端にぶつからないよう余白を作る */
+                margin: 0 auto 15px auto !important;
             }
         }
     </style>
@@ -155,7 +166,7 @@
         <div class="slide slide3"></div>
         
         <div class="hero-content">
-            <h1>アツアツの鉄板で、最高のひとときを。</h1>
+            <h1>アツアツの鉄板で、<br>最高のひとときを。</h1>
             <p>創業〇〇年、こだわり抜いた生地と秘伝のソース</p>
             <p style="background: #d32f2f; color: white; padding: 5px 15px; border-radius: 20px; font-size: 1rem; margin-top: 15px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block;">
                 📍 代々木上原駅から徒歩30秒！
