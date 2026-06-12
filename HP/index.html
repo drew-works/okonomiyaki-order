@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ごきらく亭【公式】</title>
+    <style>
+        /* 全体のリセットと共通設定 */
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f6f0; color: #333; line-height: 1.6; }
+        
+        /* ヘッダー（ロゴとナビゲーション） */
+        header { background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #d32f2f; }
+        nav a { text-decoration: none; color: #555; margin-left: 20px; font-weight: bold; }
+        nav a:hover { color: #d32f2f; }
+
+        /* メインビジュアル（一番上の大きな画像エリア） */
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 85vh; /* 👈 60vh から 85vh に広げて、もんじゃを下まで映します！ */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* スライド共通の設定 */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: sliderAnime 15s infinite; /* 15秒かけてループ */
+            z-index: 1;
+        }
+
+        /* 各スライドに写真を設定（暗めのフィルターを重ねて文字を見やすく） */
+        .slide1 {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('slide1.jpg');
+            animation-delay: 0s;
+        }
+        .slide2 {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('slide2.jpg');
+            animation-delay: 5s; /* 5秒ずらしてスタート */
+        }
+        .slide3 {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('slide3.jpg');
+            animation-delay: 10s; /* 10秒ずらしてスタート */
+        }
+
+        /* 前面の文字の設定 */
+        .hero-content {
+            position: relative;
+            z-index: 10; /* 写真より前に出す */
+            color: #fff;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        }
+
+        /* ふんわり切り替わるアニメーションの仕組み */
+        @keyframes sliderAnime {
+            0% { opacity: 0; transform: scale(1); }
+            5% { opacity: 1; } /* ふわっと現れる */
+            33% { opacity: 1; } /* 表示キープ */
+            38% { opacity: 0; transform: scale(1.05); } /* ふわっと消えながら少しズーム */
+            100% { opacity: 0; }
+        }
+
+        /* コンテンツの共通レイアウト */
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        h2 { text-align: center; color: #d32f2f; border-bottom: 2px solid #d32f2f; padding-bottom: 10px; margin-bottom: 30px; }
+
+        /* こだわりセクション */
+        .about-text { text-align: left; max-width: 650px; margin: 0 auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.05); }
+        .about-text h3 { color: #d32f2f; text-align: center; margin-top: 0; font-size: 1.3rem; }
+        .about-text p { margin-bottom: 15px; color: #555; }
+        .about-text p:last-child { margin-bottom: 0; }
+
+        /* メニューセクション */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .menu-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.05); }
+        .menu-info { padding: 15px; }
+        .menu-title { font-size: 1.2rem; font-weight: bold; margin: 0 0 5px 0; }
+        .menu-price { color: #d32f2f; font-weight: bold; }
+
+        /* 店舗情報セクション */
+        .info-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.05); }
+        .info-table th, .info-table td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
+        .info-table th { background: #f5f5f5; width: 30%; color: #666; }
+
+        /* フッター */
+        footer { background: #333; color: #fff; text-align: center; padding: 20px; margin-top: 60px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">ごきらく亭</div>
+        <nav>
+            <a href="#about">こだわり</a>
+            <a href="#menu">メニュー</a>
+            <a href="#info">店舗情報</a>
+            <a href="#faq">よくあるご質問</a>
+            <a href="#reservation" style="background: #ff9800; color: white; padding: 6px 12px; border-radius: 4px; margin-left: 10px; text-decoration: none; font-weight: bold;">ご予約はこちら</a>
+        </nav>
+    </header>
+
+    <section class="hero-slider">
+        <div class="slide slide1"></div>
+        <div class="slide slide2"></div>
+        <div class="slide slide3"></div>
+        
+        <div class="hero-content">
+            <h1>アツアツの鉄板で、最高のひとときを。</h1>
+            <p>創業〇〇年、こだわり抜いた生地と秘伝のソース</p>
+            <p style="background: #d32f2f; color: white; padding: 5px 15px; border-radius: 20px; font-size: 1rem; margin-top: 15px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block;">
+                📍 代々木上原駅から徒歩30秒！
+            </p>
+        </div>
+    </section>
+
+    <!-- 当店のこだわり -->
+   <section id="about" class="container">
+        <h2>当店のこだわり</h2>
+        <div class="about-text">
+            <h3>焼く楽しさ無限大！自分だけの黄金比率をクリエイト</h3>
+            <p>当店はお客様自身に鉄板でワイワイ焼いていただき、味付けまで自由に楽しんでいただくセルフスタイルです！</p>
+            <p>「うまくひっくり返せるか…！？のドキドキ感」や「ソースがジューッと焦げる香ばしい音」など、鉄板を囲むイベントのようなワクワク感を楽しんでいただきたいからこそ、私たちは厳選した国産豚肉やこだわり抜いた自慢の生地をご用意しています。</p>
+            <p>濃厚ソースをたっぷりかけるもよし、マヨネーズでアートを描くもよし、トッピングをたくさんするもよし。仲間や家族と笑顔でハシャぎながら、あなただけの『一番美味しい！』を鉄板の上で完成させてください！</p>
+        </div>
+    </section>
+
+    <!--メニュー（後で付け足す） -->
+    <section id="menu" class="container"> 
+        <h2>主要メニュー</h2>
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-info">
+                    <div class="menu-title">王道 豚玉</div>
+                    <div class="menu-price">¥850</div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-info">
+                    <div class="menu-title">どっさりイカ玉</div>
+                    <div class="menu-price">¥900</div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-info">
+                    <div class="menu-title">極み ミックス玉</div>
+                    <div class="menu-price">¥1,100</div>
+                </div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-info">
+                    <div class="menu-title">名物 ソース焼きそば</div>
+                    <div class="menu-price">¥750</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 店舗情報 -->
+    <section id="info" class="container">
+        <h2>店舗情報</h2>
+        <table class="info-table">
+            <tr>
+                <th>店名</th>
+                <td>ごきらく亭</td>
+            </tr>
+            <tr>
+                <th>営業時間</th>
+                <td>
+                    平日 18:00 〜 23:30 (L.O. 22:30)<br>
+                    土日祝 17:30 〜 23:00 (L.O. 22:00)<br>
+                    <span style="font-size: 0.9rem; color: #666; display: inline-block; margin-top: 5px;">
+                        ※日によって変更することがございます。お電話やお店で店員にご確認ください。
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>定休日</th>
+                <td>不定休</td>
+            </tr>
+            <tr>
+                <th>住所</th>
+                <td>
+                    〒151-0064 東京都渋谷区上原１丁目３２−１８ 小林ビル 1F<br>
+                   <span style="font-size: 0.9rem; color: #666; display: inline-block; margin-top: 5px;">
+                        代々木上原駅南口から徒歩10秒
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>電話番号</th>
+                <td>03-3460-5989</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Q&A -->
+     <section id="faq" class="container" style="background: #fff; padding: 40px 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 40px;">
+        <h2 style="text-align: center; color: #d32f2f; margin-bottom: 30px; font-size: 1.8rem; position: relative;">
+            よくあるご質問
+        </h2>
+
+        <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+            <div style="margin-bottom: 25px; border-bottom: 1px dashed #eee; padding-bottom: 15px;">
+                <p style="font-weight: bold; color: #d32f2f; font-size: 1.1rem; margin-bottom: 8px;">
+                    <span style="background: #d32f2f; color: white; padding: 2px 8px; border-radius: 4px; margin-right: 8px;">Q</span>服に匂いはつきますか？
+                </p>
+                <p style="color: #555; line-height: 1.6; padding-left: 32px;">
+                    お荷物と服にはかなり強いお好み焼きのにおいが残ります。大きめのビニール袋をご用意しておりますので、上着やカバンなどはそちらにお入れいただけます！
+                </p>
+            </div>
+
+            <div style="margin-bottom: 25px; border-bottom: 1px dashed #eee; padding-bottom: 15px;">
+                <p style="font-weight: bold; color: #d32f2f; font-size: 1.1rem; margin-bottom: 8px;">
+                    <span style="background: #d32f2f; color: white; padding: 2px 8px; border-radius: 4px; margin-right: 8px;">Q</span>予約のキャンセルや人数の変更はいつまでですか？
+                </p>
+                <p style="color: #555; line-height: 1.6; padding-left: 32px;">
+                    仕込みやお席の準備がございますので、変更がございましたら【前日まで】にお電話にてご連絡いただけますと幸いです。当日の急な変更も、分かり次第お早めにお電話ください。
+                </p>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <p style="font-weight: bold; color: #d32f2f; font-size: 1.1rem; margin-bottom: 8px;">
+                    <span style="background: #d32f2f; color: white; padding: 2px 8px; border-radius: 4px; margin-right: 8px;">Q</span>支払方法は何が使えますか？
+                </p>
+                <p style="color: #555; line-height: 1.6; padding-left: 32px;">
+                    現金とクレジットカード(タッチ決済は⚪︎ QuickPayは×)のみになります。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 予約はこちら！ -->
+    <section id="reservation" class="container" style="background: #fff5f5; padding: 40px 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; margin-top: 40px; border: 2px solid #d32f2f;">
+        <h2 style="color: #d32f2f; margin-bottom: 15px; font-size: 1.8rem;">ご予約はこちら</h2>
+        
+        <p style="font-size: 1.1rem; color: #333; font-weight: bold; margin-bottom: 10px;">
+            当店は【お電話でのご予約】のみ承っております！
+        </p>
+        
+        <p style="font-size: 0.95rem; color: #666; line-height: 1.6; margin-bottom: 25px;">
+            週末や時間帯によってはお席が埋まりやすくなっております。<br>
+            <strong>【お電話の受付時間】 開店1時間前〜 閉店まで</strong><br>
+            <span style="font-size: 0.85rem; color: #888;">※仕込み中など、上記以外の時間は出られない可能性がございますのでご了承ください。</span>
+        </p>
+
+        <a href="tel:0334605989" style="background: #ff9800; color: white; padding: 18px 40px; border-radius: 50px; font-size: 1.4rem; font-weight: bold; text-decoration: none; box-shadow: 0 6px 20px rgba(255,152,0,0.4); display: inline-block; transition: 0.3s;">
+            📞 03-3460-5989 に電話する
+        </a>
+        
+        <p style="font-size: 0.85rem; color: #9e1c1c; margin-top: 15px; font-weight: bold;">
+            ※スマホの方はボタンをタップするだけでそのままお電話が可能です。
+        </p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 ごきらく亭 All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
