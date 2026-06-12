@@ -114,14 +114,6 @@
         /* 📱 スマホ（画面幅が768px以下）用の調整 */
         @media (max-width: 768px) {
             /* 1. ヘッダーを上下2段にして、文字が潰れるのを防ぐ */
-            /* 💡 パソコンの時は、スマホ用の改行タグを非表示にする（1行にする） */
-        .sp-only {
-            display: none;
-        }
-
-        /* 📱 スマホ（画面幅が768px以下）用の調整 */
-        @media (max-width: 768px) {
-            /* 1. ヘッダーを上下2段にして、文字が潰れるのを防ぐ */
             header {
                 flex-direction: column;
                 padding: 12px 10px;
@@ -148,20 +140,25 @@
                 margin: 0 !important;
             }
 
-            /* 2. スマホの時だけ改行タグ（br）を有効にする */
-            .sp-only {
+            /* 2. スマホの時だけ、h1やpの中にある改行タグ（br）を絶対に有効にする */
+            .hero-content .sp-only {
                 display: inline !important;
             }
 
-            /* 3. メインの文字を「狙った場所（br）」だけで改行させ、綺麗な2行にする */
+            /* 3. メインの文字をガツンと大きく、綺麗な2行にする */
             .hero-content h1 {
-                font-size: 1.45rem !important; /* 💡スマホの画面幅にすっぽり収まるサイズに調整しました！ */
-                line-height: 1.6 !important;   /* 行間を少し広げて読みやすく */
-                white-space: nowrap !important; /* 画面幅による「勝手な自動折り返し」を絶対に禁止する */
+                font-size: 2.1rem !important; /* 💡サイズを大きくして迫力を出しました！ */
+                line-height: 1.4 !important;   /* 行間をちょうどよく */
+                white-space: nowrap !important; /* 変な場所での自動折り返しを禁止 */
                 max-width: 100% !important;
                 margin: 0 auto 15px auto !important;
             }
-        }
+
+            /* 4. 下の説明文の文字サイズ調整 */
+            .hero-content p {
+                font-size: 1.05rem !important;
+                line-height: 1.5 !important;
+            }
         }
     </style>
 </head>
